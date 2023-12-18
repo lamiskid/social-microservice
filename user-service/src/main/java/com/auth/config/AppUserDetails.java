@@ -1,19 +1,16 @@
-package com.lamiskid.OAuth2project.config;
+package com.auth.config;
 
 
-import com.lamiskid.OAuth2project.model.AppUser;
-import java.util.Arrays;
+
+import com.auth.model.AppUser;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 
 @AllArgsConstructor

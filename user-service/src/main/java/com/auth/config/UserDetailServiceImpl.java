@@ -1,9 +1,8 @@
-package com.lamiskid.OAuth2project.config;
+package com.auth.config;
 
-import com.lamiskid.OAuth2project.model.AppUser;
-import com.lamiskid.OAuth2project.repository.AppUserRepository;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
+
+import com.auth.model.AppUser;
+import com.auth.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class UserDetailServiceImpl implements UserDetailsService {
     @Autowired
-    private  AppUserRepository userRepository;
+    private AppUserRepository userRepository;
 
     @Override
     @Transactional

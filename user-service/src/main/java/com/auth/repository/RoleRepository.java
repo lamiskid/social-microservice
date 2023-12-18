@@ -1,8 +1,9 @@
-package com.lamiskid.OAuth2project.repository;
+package com.auth.repository;
 
 
-import com.lamiskid.OAuth2project.model.ERole;
-import com.lamiskid.OAuth2project.model.Role;
+
+import com.auth.model.ERole;
+import com.auth.model.Role;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

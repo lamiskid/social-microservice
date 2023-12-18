@@ -1,4 +1,4 @@
-package com.lamiskid.OAuth2project.model;
+package com.auth.model;
 
 
 public enum ERole {

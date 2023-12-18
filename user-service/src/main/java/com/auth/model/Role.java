@@ -1,4 +1,4 @@
-package com.lamiskid.OAuth2project.model;
+package com.auth.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

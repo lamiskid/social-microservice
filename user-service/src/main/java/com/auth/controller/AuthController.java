@@ -1,25 +1,15 @@
-package com.lamiskid.OAuth2project.controller;
+package com.auth.controller;
 
 
-import com.lamiskid.OAuth2project.config.AppUserDetails;
-import com.lamiskid.OAuth2project.config.JwtUtils;
-import com.lamiskid.OAuth2project.config.UserDetailServiceImpl;
-import com.lamiskid.OAuth2project.payload.AuthRequest;
-import com.lamiskid.OAuth2project.payload.LoginRequest;
-import com.lamiskid.OAuth2project.payload.LoginResponse;
-import com.lamiskid.OAuth2project.services.AuthService;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.auth.config.JwtUtils;
+import com.auth.payload.AuthRequest;
+import com.auth.payload.LoginRequest;
+import com.auth.payload.LoginResponse;
+import com.auth.services.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,8 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final AuthService authService;
-    @Autowired
-    private final JwtUtils jwtUtils;
 
     @Autowired
     private final AuthenticationManager authenticationManager;

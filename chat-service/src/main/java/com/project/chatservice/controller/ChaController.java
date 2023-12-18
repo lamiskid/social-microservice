@@ -1,18 +1,20 @@
 package com.project.chatservice.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/chat")
-public class ChatControlle {
+public class ChaController {
 
     @GetMapping
-    public String textController(){
-        return "hello";
+    public ResponseEntity<?> getMyAccount(){
+
+       return ResponseEntity.ok("");
+
+
     }
 
 }

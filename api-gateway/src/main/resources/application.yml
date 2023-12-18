@@ -1,0 +1,27 @@
+
+
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: chat-service
+          uri: lb://CHAT-SERVICE
+          predicates:
+            - Path=/api/v1/chat/**
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/api/auth/**
+            - Path=/api/v1/user/**
+
+  application:
+    name: api-gateway
+
+  config:
+    import: optional:configserver:httP://localhost:8888
+  main:
+    web-application-type: reactive

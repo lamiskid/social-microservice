@@ -1,4 +1,4 @@
-package com.lamiskid.OAuth2project.payload;
+package com.auth.payload;
 
 
 import lombok.AllArgsConstructor;

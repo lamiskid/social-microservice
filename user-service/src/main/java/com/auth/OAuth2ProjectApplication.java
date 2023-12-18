@@ -1,13 +1,12 @@
-package com.lamiskid.OAuth2project;
+package com.auth;
 
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import java.io.IOException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
+@EnableDiscoveryClient
 @SpringBootApplication
 public class OAuth2ProjectApplication {
 
@@ -16,13 +15,10 @@ public class OAuth2ProjectApplication {
 	}
 
 
-	@Bean
-	public FirebaseApp firebaseApp() throws IOException {
-		FirebaseOptions options = FirebaseOptions.builder()
-												 .setCredentials(GoogleCredentials.fromStream(getClass().getResourceAsStream("/firebase-credentials.json")))
-												 .build();
 
-		return FirebaseApp.initializeApp(options);
+	@Bean
+	public RestTemplate restTemplate(){
+		return new RestTemplate();
 	}
 
 }
