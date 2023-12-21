@@ -29,6 +29,22 @@ public class AppUserService {
        return appUserDto;
     }
 
+    public AppUserDto findUserById(Long userId){
+
+       AppUser appUser= appUserRepository.findById(userId)
+                         .orElseThrow(() -> new RuntimeException("User not found with id: "+userId));
+
+      return convertAppUserToDto(appUser);
+    }
+
+    public AppUserDto findUserByUserName(String userName){
+
+        AppUser appUser= appUserRepository.findByUsername(userName)
+                                          .orElseThrow(() -> new RuntimeException("User not found with username: "+userName));
+
+        return convertAppUserToDto(appUser);
+    }
+
 
 
 

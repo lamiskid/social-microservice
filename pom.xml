@@ -21,6 +21,7 @@
 		<module>discovery-server</module>
     <module>user-service</module>
     <module>meet-up-service</module>
+    <module>Community-Management-Service</module>
   </modules>
 	<properties>
 		<java.version>17</java.version>

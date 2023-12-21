@@ -1,9 +1,9 @@
 package com.project.controller;
 
 
-import com.project.payload.AddUserRequest;
-import com.project.payload.CreateMeetUpRequest;
-import com.project.service.MeetUpService;
+import com.project.model.Meeting;
+import com.project.payload.CreateMeeting;
+import com.project.service.MeetingService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,29 +19,39 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/meet")
 public class MeetUpController {
-    private final MeetUpService meetUpService;
+    private final MeetingService meetingService;
 
 
     @PostMapping("/create/{userId}")
-    public ResponseEntity<String> createMeeting(@RequestBody CreateMeetUpRequest meetUp,
-                                                @PathVariable("userId") Long userId){
-        meetUpService.createMeetUp(meetUp,userId);
+    public ResponseEntity<String> createMeeting(@RequestBody CreateMeeting meetUp){
+        meetingService.createMeeting(meetUp);
         return ResponseEntity.ok("Meeting created");
     }
-    @PostMapping("/add-users/{meetingId}")
+    @PostMapping("/add-users/{meetingId}/{attendeeId}")
     public ResponseEntity<String> addUsersToMeetUp(@PathVariable("meetingId") Long meetingId,
-                                                    @RequestBody List<String> usernames){
-        meetUpService.addUsersToMeetUp(meetingId,usernames);
+                                                    @PathVariable("attendeeId") Long attendeeId){
+        //TODO
+        meetingService.addAttendee(meetingId,attendeeId);
         return ResponseEntity.ok("user to meeting added successfully");
     }
-    @GetMapping("/find/{userId}")
-    public ResponseEntity<?> findMyMeetUps(@PathVariable("userId") Long userId){
-        return ResponseEntity.ok( meetUpService.findMyMeetUps(userId));
+    /*@GetMapping("/find/{userId}")
+    public ResponseEntity<?> findMyMeetings(@PathVariable("userId") String username){
+        return ResponseEntity.ok( meetUpService.findMyMeetUps(username));
+    }*/
+
+    @GetMapping("/my-meetings")
+    public ResponseEntity<List<Meeting>> getCreatedMeetings(){
+        return ResponseEntity.ok(meetingService.myMeetings());
     }
-    @DeleteMapping("/meetup/{userId}/{meetingId}")
-    public ResponseEntity<?> deleteMyMeetUps(@PathVariable("meetingId") Long meetingId,
-                                             @PathVariable("userId") Long userId){
-        meetUpService.deleteMeetUp(meetingId);
+
+    @GetMapping("/")
+    public ResponseEntity<List<Meeting>> getAllMeetings(){
+        return ResponseEntity.ok(meetingService.getAllMeetings());
+    }
+    @DeleteMapping("/meetup/{meetingId}/{attendeeId}")
+    public ResponseEntity<?> removeAttendee(@PathVariable("meetingId") Long meetingId,
+                                             @PathVariable("attendeeId") Long attendeeId){
+        meetingService.removeAttendee(meetingId,attendeeId);
         return ResponseEntity.ok( "MeetUp deleted Successfully");
     }
 }

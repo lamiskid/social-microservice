@@ -4,7 +4,7 @@ services:
   api-gateway:
     image: api-gateway
     ports:
-      - "8181:8181"
+      - "8181:8084"
     build:
       context: ./api-gateway
       dockerfile: ./Dockerfile

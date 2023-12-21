@@ -27,12 +27,19 @@ public class UserController {
     }
 
 
-    @GetMapping("/{userId}")
+    @GetMapping("/login-user")
     public ResponseEntity<AppUserDto> getLoginUser(){
 
        return ResponseEntity.ok(appUserService.authenticatedUser());
-
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AppUserDto> getUserById(@PathVariable("id") Long id){
+
+        return ResponseEntity.ok(appUserService.findUserById(id));
+    }
+
+
 
     @GetMapping("/getAllUsers")
     public ResponseEntity<List<AppUserDto>> getAllUsers(){

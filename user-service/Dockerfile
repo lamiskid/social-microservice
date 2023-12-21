@@ -35,7 +35,7 @@ ENV POSTGRES_USER=admin \
     POSTGRES_PASSWORD=password
 
 # Expose the port where the application will be listening
-EXPOSE 8084
+EXPOSE 8080
 
 # Specify the command to run when the container starts
 ENTRYPOINT ["java", "-jar", "/app/chat-service.jar"]
