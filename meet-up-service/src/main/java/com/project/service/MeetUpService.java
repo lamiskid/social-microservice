@@ -2,7 +2,7 @@
 package com.project.service;
 
 import com.project.feignClient.UserFeignClient;
-import com.project.model.AppUser;
+import com.project.model.Attendee;
 import com.project.model.Meeting;
 import com.project.payload.AppUserResponse;
 import com.project.payload.CreateMeeting;
@@ -57,9 +57,9 @@ public class MeetUpService {
                                            .orElseThrow(() -> new RuntimeException("Meeting not found"));
 
         List<AppUserResponse> allUserByUsername = getAllUserByUsername(usernames);
-        Set<AppUser> appUserStream = allUserByUsername.stream().map(this::toAppUserResponse).collect(Collectors.toSet());
+        Set<Attendee> appUserStream = allUserByUsername.stream().map(this::toAppUserResponse).collect(Collectors.toSet());
 
-        Set<AppUser> combinedList = new HashSet<>(appUserStream);
+        Set<Attendee> combinedList = new HashSet<>(appUserStream);
         boolean isAdded= combinedList.addAll(meeting.getAttendees());
 
         if (isAdded) {
@@ -104,18 +104,18 @@ public class MeetUpService {
      Meeting meeting =   meetingRepository.findById(1L)
                                           .orElseThrow(() -> new RuntimeException("You are not the creator of this meeting"));
 
-     List<AppUser> appUser=   userRepository.findByUsername(username);
+     List<Attendee> appUser=   userRepository.findByUsername(username);
 
     }
 
 
 
 
-    private AppUser toAppUserResponse(AppUserResponse userResponse) {
-        return AppUser.builder().userId(userResponse.getId()).username(userResponse.getUsername()).build();
+    private Attendee toAppUserResponse(AppUserResponse userResponse) {
+        return Attendee.builder().userId(userResponse.getId()).username(userResponse.getUsername()).build();
     }
 
-    private AppUser getAllUser() {
+    private Attendee getAllUser() {
         return Objects.requireNonNull(userFeignClient.getAllUser().getBody()).getData();
     }
 

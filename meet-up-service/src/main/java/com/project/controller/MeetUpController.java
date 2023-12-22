@@ -4,6 +4,7 @@ package com.project.controller;
 import com.project.model.Meeting;
 import com.project.payload.CreateMeeting;
 import com.project.service.MeetingService;
+import jakarta.ws.rs.Path;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +24,8 @@ public class MeetUpController {
 
 
     @PostMapping("/create/{userId}")
-    public ResponseEntity<String> createMeeting(@RequestBody CreateMeeting meetUp){
-        meetingService.createMeeting(meetUp);
+    public ResponseEntity<String> createMeeting(@RequestBody CreateMeeting meetUp,@PathVariable("userId") Long userId){
+        meetingService.createMeeting(meetUp,userId);
         return ResponseEntity.ok("Meeting created");
     }
     @PostMapping("/add-users/{meetingId}/{attendeeId}")
@@ -39,19 +40,25 @@ public class MeetUpController {
         return ResponseEntity.ok( meetUpService.findMyMeetUps(username));
     }*/
 
-    @GetMapping("/my-meetings")
-    public ResponseEntity<List<Meeting>> getCreatedMeetings(){
-        return ResponseEntity.ok(meetingService.myMeetings());
+    @GetMapping("/my-meetings/{userId}")
+    public ResponseEntity<List<Meeting>> getMyMeetings(@PathVariable("userId") Long userId){
+        return ResponseEntity.ok(meetingService.myMeetings(userId));
     }
 
-    @GetMapping("/")
+    @DeleteMapping("/admin/delete/{meetingId}")
+    public ResponseEntity<Long> deleteMeetings(@PathVariable("meetingId") Long meetingId){
+        return ResponseEntity.ok(meetingService.deleteMeeting(meetingId));
+    }
+
+    @GetMapping("/all")
     public ResponseEntity<List<Meeting>> getAllMeetings(){
         return ResponseEntity.ok(meetingService.getAllMeetings());
     }
-    @DeleteMapping("/meetup/{meetingId}/{attendeeId}")
+    @DeleteMapping("/meetup/{userId}/{meetingId}/{attendeeId}")
     public ResponseEntity<?> removeAttendee(@PathVariable("meetingId") Long meetingId,
+                                            @PathVariable("userId") Long userId,
                                              @PathVariable("attendeeId") Long attendeeId){
-        meetingService.removeAttendee(meetingId,attendeeId);
-        return ResponseEntity.ok( "MeetUp deleted Successfully");
+        meetingService.removeAttendee(meetingId,userId,attendeeId);
+        return ResponseEntity.ok( "removed Successfully");
     }
 }

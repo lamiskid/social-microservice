@@ -6,36 +6,13 @@
 # --
 
 # Use a Maven base image
-FROM maven:3.8.4-openjdk-17 AS builder
-
-# Copy the application files from the host machine to the image filesystem
-COPY . /home/app/src
-
-# Set the working directory within the image
-WORKDIR /home/app/src
-
-# Run Maven build within the container
-RUN mvn clean install -DskipTests
-
-# Package stage
-# --
 
 # Use an OpenJDK base image
 FROM openjdk:17-jdk
 
 # Create a directory within the container
-RUN mkdir /app
+FROM maven:3.8.4-openjdk-17 AS builder
+WORKDIR /home/app
+COPY target/discovery-server-0.0.1-SNAPSHOT.jar discovery-server.jar
 
-
-# Copy the application files from the build stage to the image filesystem
-COPY --from=builder /home/app/src/target/*.jar /app/discovery-service.jar
-
-# Set environment variables
-ENV POSTGRES_USER=admin \
-    POSTGRES_PASSWORD=password
-
-# Expose the port where the application will be listening
-EXPOSE 8761
-
-# Specify the command to run when the container starts
-ENTRYPOINT ["java", "-jar", "/app/discovery-service.jar"]
+CMD java -jar discovery-server.jar

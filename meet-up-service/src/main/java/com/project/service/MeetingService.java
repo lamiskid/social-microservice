@@ -2,7 +2,7 @@ package com.project.service;
 
 
 import com.project.feignClient.UserFeignClient;
-import com.project.model.AppUser;
+import com.project.model.Attendee;
 import com.project.model.Meeting;
 import com.project.payload.AppUserResponse;
 import com.project.payload.CreateMeeting;
@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @AllArgsConstructor
 @Service
@@ -32,14 +33,20 @@ public class MeetingService {
         return meetingRepository.findById(id);
     }
 
-    public Meeting createMeeting(CreateMeeting meetUpRequest) {
+    @Transactional
+    public Meeting createMeeting(CreateMeeting meetUpRequest,Long userId) {
+
+      AppUserResponse response=   getUserById(userId);
+
+
 
         Meeting meeting = Meeting.builder()
                                  .meetingName(meetUpRequest.getMeetingName())
                                  .city(meetUpRequest.getCity())
                                  .location(meetUpRequest.getLocation())
                                  .meetUpDate(meetUpRequest.getMeetUpDate())
-                                 .organizer(appUserResponseToAppUserDto(getLogInUser()))
+                                    .organizerId(response.getId())
+                                // .organizer(appUserResponseToAppUserDto(getLogInUser()))
                                  .build();
 
         return meetingRepository.save(meeting);
@@ -56,41 +63,57 @@ public class MeetingService {
 
         AppUserResponse userResponse = getUserById(userId);
 
-        AppUser appUser = appUserResponseToAppUserDto(userResponse);
+        Attendee appUser = appUserResponseToAppUserDto(userResponse);
 
         // Add the user to the meeting's attendees
         meeting.getAttendees().add(appUser);
         meetingRepository.save(meeting);
     }
 
-    public void removeAttendee(Long meetingId, Long attendee) {
+    @Transactional
+    public void removeAttendee(Long meetingId,Long userId, Long attendee) {
         Meeting meeting = meetingRepository.findById(meetingId)
                                            .orElseThrow(() -> new RuntimeException("meeting with id " +meetingId+" not found"));
 
         AppUserResponse userResponse = getUserById(attendee);
 
-        if (meeting.getOrganizer().getUserId()==userResponse.getId()) {
-            AppUser appUser = appUserResponseToAppUserDto(userResponse);
+        if (meeting.getOrganizerId()==userId) {
+            Attendee appUserAttendee = appUserResponseToAppUserDto(userResponse);
 
             // Remove the user from the meeting's attendees
-            meeting.getAttendees().remove(appUser);
+            meeting.getAttendees().remove(appUserAttendee);
             meetingRepository.save(meeting);
+        }else {
+            throw new RuntimeException("You do not have permission to remove this user ");
         }
     }
 
-    public List<Meeting> myMeetings() {
+    public List<Meeting> myMeetings(Long userId) {
 
-        AppUserResponse userResponse = getLogInUser();
+        AppUserResponse userResponse = getUserById(userId);
 
          List<Meeting> meetings=   meetingRepository.findAll();
 
        List<Meeting> myMeetings= meetings.stream()
-                                         .filter(meeting -> meeting.getOrganizer().getUserId()==userResponse.getId()).collect(Collectors.toList());
+                                         .filter(meeting -> meeting.getOrganizerId()==userResponse.getId()).collect(Collectors.toList());
 
 
         return myMeetings;
     }
 
+
+    @Transactional
+    public Long deleteMeeting(Long meetingId){
+
+        Meeting meeting = meetingRepository.findById(meetingId)
+                                           .orElseThrow(() -> new RuntimeException("meeting with id " +meetingId+" not found"));
+
+
+        meetingRepository.deleteById(meetingId);
+
+        return meeting.getId();
+
+    }
 
     private AppUserResponse getLogInUser() {
         return Objects.requireNonNull(userFeignClient.getUserLoginUser().getBody());
@@ -101,9 +124,9 @@ public class MeetingService {
 
     }
 
-    private AppUser appUserResponseToAppUserDto(AppUserResponse response){
+    private Attendee appUserResponseToAppUserDto(AppUserResponse response){
 
-        AppUser appUser=new AppUser();
+        Attendee appUser=new Attendee();
         appUser.setUserId(response.getId());
         appUser.setUsername(response.getUsername());
         appUser.setEmail(response.email);

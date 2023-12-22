@@ -18,6 +18,8 @@ public class AppUserDetails implements UserDetails {
 
     private String username;
     private String password;
+
+    private boolean enable;
     private List<GrantedAuthority> authorities;
 
 
@@ -25,6 +27,7 @@ public class AppUserDetails implements UserDetails {
     public AppUserDetails(AppUser appUser) {
         username = appUser.getUsername();
         password = appUser.getPassword();
+        enable = appUser.isEnable();
        authorities =  appUser.getRoles()
                            .stream()
                            .map(role -> new SimpleGrantedAuthority(role.getName().name()))

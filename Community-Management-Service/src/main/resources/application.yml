@@ -1,0 +1,28 @@
+spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mydb
+    username: foo
+    password: bar
+    driverClassName: org.postgresql.Driver
+
+  application:
+    name: COMMUNITY-SERVICE
+
+server:
+  port: 8092
+  error:
+    include-binding-errors: always
+    include-message: always
+
+eureka:
+  client:
+    service-url: http://localhost:8761/eureka
+
+
+
+

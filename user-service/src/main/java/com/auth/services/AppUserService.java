@@ -44,6 +44,23 @@ public class AppUserService {
 
         return convertAppUserToDto(appUser);
     }
+    public void removeUser(Long userId){
+
+        appUserRepository.deleteById(userId);
+
+    }
+
+    public void blockUser(Boolean enable,Long userId){
+
+        AppUser appUser=appUserRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("user not found "));
+
+        appUser.setEnable(enable);
+
+        appUserRepository.save(appUser);
+
+
+    }
 
 
 

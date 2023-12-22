@@ -2,6 +2,8 @@
 
 
 spring:
+  application:
+    name: api-gateway
   cloud:
     gateway:
       discovery:
@@ -17,11 +19,24 @@ spring:
           predicates:
             - Path=/api/auth/**
             - Path=/api/v1/user/**
+        - id: meeting-service
+          uri: lb://meeting-SERVICE
+          predicates:
+            - Path=/api/v1/meet/**
 
-  application:
-    name: api-gateway
+
 
   config:
     import: optional:configserver:httP://localhost:8888
   main:
     web-application-type: reactive
+
+
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.gateway.route.RouteDefinitionLocator: INFO
+    org.springframework.cloud.gateway: TRACE
+
+
+

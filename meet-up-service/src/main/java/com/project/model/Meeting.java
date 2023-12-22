@@ -1,6 +1,7 @@
 package com.project.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,7 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import java.time.LocalDate;
 import java.util.Set;
 import lombok.AllArgsConstructor;
@@ -30,15 +30,15 @@ public class Meeting {
     private Long id;
     private String meetingName;
 
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private LocalDate meetUpDate;;
 
     private String location;
 
     private String city;
 
-    @ManyToOne
-    @JoinColumn(name = "organizer_id")
-    private AppUser organizer;
+
+    private Long organizerId;
 
     @JoinTable(
             name = "meeting_attendees",
@@ -46,6 +46,6 @@ public class Meeting {
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     @ManyToMany(cascade = CascadeType.ALL)
-    private Set<AppUser> attendees ;
+    private Set<Attendee> attendees ;
 
 }

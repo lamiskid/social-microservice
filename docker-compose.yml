@@ -14,14 +14,14 @@ services:
     networks:
       - spring
 
-  discovery-service:
+  discovery-server:
     image: discovery-service
     ports:
       - "8761:8761"
     build:
-      context: ./discovery-service
+      context: ./discovery-server
       dockerfile: ./Dockerfile
-    container_name: discovery-service
+    container_name: discovery-server
     environment:
       SPRING_PROFILES_ACTIVE: docker
       eureka.client.serviceUrl.defaultZone: http://discovery-service:8761/eureka/

@@ -2,34 +2,31 @@ package com.project.model;
 
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import java.util.Set;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-@Builder
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 public class AppUser {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long id;
 
-    private String username;
-    private String email;
+    private String userName;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Schedule> schedule;
+
 
 
 }

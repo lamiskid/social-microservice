@@ -36,6 +36,16 @@ public class GroupService {
          throw new RuntimeException("can not delete group : ids not valid");
      }
     }
+    public Long adminDeleteGroup(Long groupId){
+
+        GroupChat groupChat=   groupRepository.findById(groupId)
+                                              .orElseThrow(()-> new RuntimeException("group not found"));
+
+        groupRepository.delete(groupChat);
+
+        return groupChat.getId();
+
+    }
 
     public List<GroupChat> getAllGroups() {
         return groupRepository.findAll();
