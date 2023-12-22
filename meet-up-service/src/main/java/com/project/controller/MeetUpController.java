@@ -44,10 +44,14 @@ public class MeetUpController {
     public ResponseEntity<List<Meeting>> getMyMeetings(@PathVariable("userId") Long userId){
         return ResponseEntity.ok(meetingService.myMeetings(userId));
     }
-
+    @DeleteMapping("/delete/{userId}/{meetingId}")
+    public ResponseEntity<Long> deleteMeetings(@PathVariable("meetingId") Long meetingId,
+                                               @PathVariable("userId") Long userId){
+        return ResponseEntity.ok(meetingService.deleteMeeting(meetingId,userId));
+    }
     @DeleteMapping("/admin/delete/{meetingId}")
     public ResponseEntity<Long> deleteMeetings(@PathVariable("meetingId") Long meetingId){
-        return ResponseEntity.ok(meetingService.deleteMeeting(meetingId));
+        return ResponseEntity.ok(meetingService.deleteMeetingByAdmin(meetingId));
     }
 
     @GetMapping("/all")

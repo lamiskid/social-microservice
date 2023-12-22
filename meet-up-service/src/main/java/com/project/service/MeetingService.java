@@ -52,10 +52,6 @@ public class MeetingService {
         return meetingRepository.save(meeting);
     }
 
-    public void deleteMeetingById(Long id) {
-
-        meetingRepository.deleteById(id);
-    }
 
     public void addAttendee(Long meetingId, Long userId) {
         Meeting meeting = meetingRepository.findById(meetingId)
@@ -103,16 +99,31 @@ public class MeetingService {
 
 
     @Transactional
-    public Long deleteMeeting(Long meetingId){
+    public Long deleteMeeting(Long meetingId,Long userId){
 
         Meeting meeting = meetingRepository.findById(meetingId)
                                            .orElseThrow(() -> new RuntimeException("meeting with id " +meetingId+" not found"));
 
+        if(meeting.getOrganizerId()==userId) {
 
-        meetingRepository.deleteById(meetingId);
 
-        return meeting.getId();
+            meetingRepository.deleteById(meetingId);
 
+            return meeting.getId();
+        }else {
+            throw new RuntimeException("Can not delete meeting ");
+        }
+
+    }
+
+    @Transactional
+    public Long deleteMeetingByAdmin(Long meetingId){
+
+        Meeting meeting = meetingRepository.findById(meetingId)
+                                           .orElseThrow(() -> new RuntimeException("meeting with id " +meetingId+" not found"));
+            meetingRepository.deleteById(meetingId);
+
+           return meetingId;
     }
 
     private AppUserResponse getLogInUser() {

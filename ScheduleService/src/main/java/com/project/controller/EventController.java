@@ -33,21 +33,15 @@ public class EventController {
     }
 
 
-    @PostMapping("/all)")
-    private ResponseEntity<List<Schedule>> getUserSchedule(@PathVariable("userId") Long userId){
+    @GetMapping("/all)")
+    private ResponseEntity<List<Schedule>> getUserSchedules(@PathVariable("userId") Long userId){
 
-        return ResponseEntity.ok(scheduleService.getAllUserEvent(userId));
-
-    }
-    @GetMapping("/{eventId}")
-    private ResponseEntity<Schedule> getScheduleService(@PathVariable("eventId") Long eventId){
-
-        return ResponseEntity.ok(scheduleService.getUserEvent(eventId));
+        return ResponseEntity.ok(scheduleService.getAUserEvents(userId));
 
     }
 
-    @DeleteMapping("/delete")
-    private ResponseEntity<String> deleteSchedule(Long eventId){
+    @DeleteMapping("/delete/{eventId}")
+    private ResponseEntity<String> deleteSchedule(@PathVariable("eventId") Long eventId){
 
         scheduleService.deleteEvent(eventId);
 

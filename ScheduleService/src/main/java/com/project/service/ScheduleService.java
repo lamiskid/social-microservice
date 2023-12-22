@@ -42,19 +42,16 @@ public class ScheduleService {
     @Transactional
     public void deleteEvent(Long eventId) {
         Schedule schedule = scheduleRepository.findById(eventId).orElseThrow(() -> new RuntimeException("ScheduleService not found :id " + eventId));
+        schedule.getAppUser().getSchedule();
         scheduleRepository.delete(schedule);
 
     }
 
 
-    public Schedule getUserEvent(Long eventId) {
-        Schedule schedule = scheduleRepository.findById(eventId).orElseThrow(() -> new RuntimeException("ScheduleService not found  with id :" + eventId));
 
-        return schedule;
-    }
-    public List<Schedule> getAllUserEvent(Long userid) {
+    public List<Schedule> getAUserEvents(Long userId) {
 
-        AppUser appUser = appUserRepository.findById(userid).orElseThrow(() -> new RuntimeException("user with id " + userid + " not found"));
+        AppUser appUser = appUserRepository.findById(userId).orElseThrow(() -> new RuntimeException("user with id " + userId + " not found"));
 
         return appUser.getSchedule();
     }
