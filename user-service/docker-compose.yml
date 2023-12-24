@@ -1,0 +1,70 @@
+
+version: '3.8'
+
+services:
+  userdb:
+    image: mysql:latest
+    platform: linux/amd64
+    restart: always
+    ports:
+      - "54320:3306"
+    environment:
+      MYSQL_DATABASE: auth
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: root
+
+  scheduledb:
+    image: mysql:latest
+    platform: linux/amd64
+    restart: always
+    ports:
+      - "54321:3306"
+    environment:
+      MYSQL_DATABASE: schedule
+      MYSQL_USER: schedule
+      MYSQL_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: root
+
+  meetupdb:
+    image: mysql:latest
+    platform: linux/amd64
+    restart: always
+    ports:
+      - "54322:3306"
+    environment:
+      MYSQL_DATABASE: meetup
+      MYSQL_USER: meetup
+      MYSQL_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: root
+
+  managementdb:
+    image: mysql:latest
+    platform: linux/amd64
+    restart: always
+    ports:
+      - 54323:3306
+    environment:
+      MYSQL_DATABASE: management
+      MYSQL_USER: management
+      MYSQL_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: root
+
+  chatdb:
+    image: mysql:latest
+    platform: linux/amd64
+    restart: always
+    ports:
+      - "54324:3306"
+    environment:
+      MYSQL_DATABASE: chat
+      MYSQL_USER: chat
+      MYSQL_PASSWORD: chat
+      MYSQL_ROOT_PASSWORD: root
+
+  adminer:
+    image: adminer
+    platform: linux/amd64
+    restart: always
+    ports:
+      - 18080:8080

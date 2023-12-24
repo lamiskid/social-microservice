@@ -6,36 +6,19 @@
 # --
 
 # Use a Maven base image
-FROM maven:3.8.4-openjdk-17 AS builder
-
-# Copy the application files from the host machine to the image filesystem
-COPY . /home/app/src
-
-# Set the working directory within the image
+# Use the official Tomcat image as the base image
+FROM openjdk:17-jdk
 WORKDIR /home/app/src
 
-# Run Maven build within the container
-RUN mvn clean install -DskipTests
+COPY target/*.jar /usr/local/tomcat/webapps/ROOT.jar
 
-# Package stage
+# Copy the application files from the host machine to the image fi
+
+# Package stageS
 # --
 
-# Use an OpenJDK base image
-FROM openjdk:17-jdk
+# Expose port 8080 for the application
+EXPOSE 8904
 
-# Create a directory within the container
-RUN mkdir /app
-
-
-# Copy the application files from the build stage to the image filesystem
-COPY --from=builder /home/app/src/target/*.jar /app/user-service.jar
-
-# Set environment variables
-ENV POSTGRES_USER=admin \
-    POSTGRES_PASSWORD=password
-
-# Expose the port where the application will be listening
-EXPOSE 8080
-
-# Specify the command to run when the container starts
-ENTRYPOINT ["java", "-jar", "/app/chat-service.jar"]
+# Define the default command to start Tomcat
+CMD ["java", "-jar", "your-spring-boot-app.jar"]
