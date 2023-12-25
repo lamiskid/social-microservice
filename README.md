@@ -2,8 +2,7 @@
 ## UNI VIBES
 
 [![Build Status](https://travis-ci.org/codecentric/springboot-sample-app.svg?branch=master)](https://travis-ci.org/codecentric/springboot-sample-app)
-[![Coverage Status](https://coveralls.io/repos/github/codecentric/springboot-sample-app/badge.svg?branch=master)](https://coveralls.io/github/codecentric/springboot-sample-app?branch=master)
-[![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
+
 
 Minimal [Spring Boot](http://projects.spring.io/spring-boot/) sample app.
 
@@ -11,10 +10,10 @@ Minimal [Spring Boot](http://projects.spring.io/spring-boot/) sample app.
 
 For building and running the application you need:
 
-- [JDK 17]
-- [Maven 3](https://maven.apache.org)
-- Docker compose desktop installed
-- InteliJ IDE
+- [JDK 17](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
+  you can download the jdk directly from inteliJ.
+  Go to settings->project Structure->SDK
+  Then select JDK 17 or above
 
 ## Running the application locally
 
