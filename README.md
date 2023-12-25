@@ -1,4 +1,4 @@
-# springboot-sample-app
+# springboot- UNI VIBES -app
 
 [![Build Status](https://travis-ci.org/codecentric/springboot-sample-app.svg?branch=master)](https://travis-ci.org/codecentric/springboot-sample-app)
 [![Coverage Status](https://coveralls.io/repos/github/codecentric/springboot-sample-app/badge.svg?branch=master)](https://coveralls.io/github/codecentric/springboot-sample-app?branch=master)
@@ -9,26 +9,26 @@ Minimal [Spring Boot](http://projects.spring.io/spring-boot/) sample app.
 ## Requirements
 
 For building and running the application you need:
-
-- [JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 - [Maven 3](https://maven.apache.org)
+  you do not have to download this because it already packaged with your IDE
+
+- [JDK 17](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
+  you can download the jdk directly from inteliJ.
+  Go to settings->project Structure->SDK
+  Then select JDK 17 or above
+
 
 ## Running the application locally
 
-There are several ways to run a Spring Boot application on your local machine. One way is to execute the `main` method in the `de.codecentric.springbootsample.Application` class from your IDE.
-
-Alternatively you can use the [Spring Boot Maven plugin](https://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-maven-plugin.html) like so:
-
+Go to the root of the base folder where the docker-compose.yml file is located
+and run
 ```shell
-mvn spring-boot:run
+docker compose up -d
 ```
+This will install the database on the docker engine
+
+
+There are several ways to run a Spring Boot application on your local machine. One way is to execute the `main` method in the ` Go to the main class of each services and run ` class from your IDE.
 
 
 
-```shell
-oc expose springboot-sample-app --hostname=www.example.com
-```
-
-## Copyright
-
-Released under the Apache License 2.0. See the [LICENSE](https://github.com/codecentric/springboot-sample-app/blob/master/LICENSE) file.
