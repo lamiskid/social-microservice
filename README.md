@@ -30,13 +30,13 @@ mvn spring-boot:run
 ```
 or go to the main method and run it
 ## Swagger documentation
-for user-service:  
+for user-service:
 localhost:8094
 ``` shell
 http://localhost:8094/swagger-ui/index.html#/
 ```
 
-for chat-service
+for chat-service 
 localhost:8091
 ``` shell
 http://localhost:8091/swagger-ui/index.html#/
@@ -48,7 +48,7 @@ localhost:8093
 ``` shell
 http://localhost:8093/swagger-ui/index.html#/
 ```
-for schedule     
+for schedule   
 localhost:8096
 ``` shell
 http://localhost:8096/swagger-ui/index.html#/
