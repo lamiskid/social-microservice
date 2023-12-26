@@ -1,7 +1,7 @@
 # springboot-microservice-social-app
-## UNI VIBES
+ UNI VIBES
 
-[![Build Status](https://travis-ci.org/codecentric/springboot-sample-app.svg?branch=master)](https://travis-ci.org/codecentric/springboot-sample-app)
+
 
 
 Minimal [Spring Boot](http://projects.spring.io/spring-boot/) sample app.
@@ -17,10 +17,25 @@ For building and running the application you need:
 
 ## Running the application locally
 
-check the docker compose file at the root of the application "docker-compose.yml"
-run the command "docker-compose up"
+check the docker-compose file at the root of the application "docker-compose.yml"
+run the command
+```docker-compose up```
 
-There are several ways to run a Spring Boot application on your local machine. One way is to execute the `main` method in the `de.codecentric.springbootsample.Application` class from your IDE.
+
+
+for user
+localhost:8094
+for chat
+localhost:8091
+for meeting :
+localhost:8093
+
+for schedule
+localhost:8096
+
+for managmennt
+localhost:8095
+
 
 
 
