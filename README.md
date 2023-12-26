@@ -19,7 +19,9 @@ For building and running the application you need:
 
 check the docker-compose file at the root of the application "docker-compose.yml"
 run the command
-```docker-compose up```
+```shell
+docker-compose up
+```
 
 
 
