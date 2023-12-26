@@ -29,6 +29,14 @@ run the command
 mvn spring-boot:run
 ```
 or go to the main method and run it
+## Note
+The api-gateway and the discovery server must run first
+ The api Gateway is the single route to access other micro-services
+For api-gateway
+``` shell
+http://localhost:8090
+```
+
 ## Swagger documentation
 for user-service:
 localhost:8094
@@ -43,16 +51,14 @@ http://localhost:8091/swagger-ui/index.html#/
 ```
 
 
-for meeting-service:   
+for meeting-service:
 localhost:8093
 ``` shell
 http://localhost:8093/swagger-ui/index.html#/
 ```
-for schedule   
+for schedule
 localhost:8096
 ``` shell
 http://localhost:8096/swagger-ui/index.html#/
 ```
-
-
 
