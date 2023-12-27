@@ -39,7 +39,7 @@ public class SecurityConfig {
                     auth
                             .requestMatchers("/api/v1/user/**")
                             .permitAll()
-                            .requestMatchers("/api/auth/**").permitAll()
+                            .requestMatchers("/api/v1/auth/**").permitAll()
                             .requestMatchers(
                                     "/v3/api-docs/**",
                                     "/swagger-ui/**",
@@ -55,8 +55,6 @@ public class SecurityConfig {
                             .permitAll()
                             .requestMatchers(HttpMethod.POST, "/api/auth/sign-up")
                             .permitAll()
-
-                            .requestMatchers("/api/").permitAll()
                             .anyRequest().authenticated()
             ).authenticationProvider(authenticationProvider());
 

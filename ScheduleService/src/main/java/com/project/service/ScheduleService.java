@@ -3,19 +3,20 @@ package com.project.service;
 
 
 import com.project.feignClient.UserFeignClient;
+
 import com.project.model.AppUser;
 import com.project.model.Schedule;
 import com.project.payload.AppUserResponse;
-import com.project.payload.CreateEventRequest;
+import com.project.payload.ScheduleRequest;
 import com.project.reposittory.AppUserRepository;
 import com.project.reposittory.ScheduleRepository;
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 
 @AllArgsConstructor
 @Service
@@ -25,51 +26,58 @@ public class ScheduleService {
 
     private final UserFeignClient userFeignClient;
 
-    public void createEvent(Long userId, CreateEventRequest eventRequest) {
 
-        AppUserResponse appUser=getUserById(userId);
+    @Transactional
+    public void createSchedule(ScheduleRequest scheduleRequest) {
+        AppUserResponse appUserResponse=getUserById(scheduleRequest.getUserId());
 
         Schedule schedule = Schedule
                 .builder()
-                .description(eventRequest.getDescription()).
-                eventName(eventRequest.getEventName())
+                .appUserId(appUserResponse.getId())
+                .description(scheduleRequest.getDescription())
+                .title(scheduleRequest.getTitle())
                 .setAt(Instant.now())
-                .appUser(appUserResponseToAppUserDto(appUser))
-                .endAt(eventRequest.getExpiredDate()).build();
+                .endAt(scheduleRequest.getEndAt()).build();
+
         scheduleRepository.save(schedule);
 
     }
     @Transactional
-    public void deleteEvent(Long eventId) {
-        Schedule schedule = scheduleRepository.findById(eventId).orElseThrow(() -> new RuntimeException("ScheduleService not found :id " + eventId));
-        schedule.getAppUser().getSchedule();
+    public void deleteSchedule(UUID scheduleId) {
+        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(() -> new RuntimeException("Schedule not found :id " + scheduleId));
+
         scheduleRepository.delete(schedule);
 
     }
 
 
 
-    public List<Schedule> getAUserEvents(Long userId) {
+    public List<Schedule> getAUserSchedule(Long userId) {
 
-        AppUser appUser = appUserRepository.findById(userId).orElseThrow(() -> new RuntimeException("user with id " + userId + " not found"));
+     return scheduleRepository.findByAppUserId(userId);
 
-        return appUser.getSchedule();
     }
-    public void editEvent(Long eventId, CreateEventRequest eventRequest) {
-       Schedule schedule = scheduleRepository.findById(eventId).orElseThrow(() -> new RuntimeException("ScheduleService not found with id " + eventId));
-        scheduleRepository.save(schedule);
+
+    @Transactional
+    public void editSchedule(UUID scheduleId, ScheduleRequest scheduleRequest) {
+       Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(() -> new RuntimeException("Schedule not found with id " + scheduleId));
+
+       schedule.setDescription(scheduleRequest.getDescription());
+       schedule.setEndAt(scheduleRequest.getEndAt());
+        schedule.setTitle(scheduleRequest.getTitle());
+       // scheduleRepository.save(schedule);
     }
 
     private AppUser appUserResponseToAppUserDto(AppUserResponse response){
 
         AppUser appUser=new AppUser();
-        appUser.setId(response.getId());
-        appUser.setUserName(response.getUsername());
+       // appUser.setId(response.getId());
+        appUser.setUsername(response.getUsername());
+        appUser.setEmail(response.getEmail());
 
         return appUser;
 
     }
-
 
     private AppUserResponse getUserById(Long id) {
         return Objects.requireNonNull(userFeignClient.getUserById(id).getBody());

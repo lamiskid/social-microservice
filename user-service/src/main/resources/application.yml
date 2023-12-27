@@ -1,4 +1,7 @@
 server:
-  port: 8904
+  port: 8094
 
 
+logging:
+  level:
+    root: INFO

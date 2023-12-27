@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/v1/community")
+@RequestMapping("/api/v1/management")
 public class CommunityController {
 
     private final CommunityService communityService;
