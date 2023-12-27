@@ -1,6 +1,4 @@
 
-
-
 spring:
   application:
     name: api-gateway
@@ -17,19 +15,64 @@ spring:
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
-            - Path=/api/auth/**
             - Path=/api/v1/user/**
+          filters:
+            - AuthenticationFilter
+
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/api/v1/auth/**
+
+
         - id: meeting-service
-          uri: lb://meeting-SERVICE
+          uri: lb://MEETING-SERVICE
           predicates:
             - Path=/api/v1/meet/**
+          filters:
+            - AuthenticationFilter
 
+
+        - id: schedule-service
+          uri: lb://SCHEDULE-SERVICE
+          predicates:
+            - Path=/api/v1/schedule/**
+          filters:
+            - AuthenticationFilter
+
+        - id: management-service
+          uri: lb://MANAGEMENT-SERVICE
+          predicates:
+            - Path=/api/v1/management/**
+          filters:
+            - AuthenticationFilter
 
 
   config:
     import: optional:configserver:httP://localhost:8888
   main:
     web-application-type: reactive
+
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+
+
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    configUrl: ${server.servlet.contextPath}/v3/api-docs/swagger-config
+    url: ${server.servlet.contextPath}/v3/api-docs
+    urls:
+      - name: user-service
+        url: /USER-SERVICE/v3/api-docs
+      - name: meeting-service
+        url: /MEETING-SERVICE/v3/api-docs
+
+
 
 
 logging:

@@ -1,4 +1,4 @@
-package com.project.payload;
+package com.project.chatting.chatapp.payload;
 
 
 import lombok.AllArgsConstructor;

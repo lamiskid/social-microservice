@@ -101,14 +101,12 @@ public class MeetingService {
     @Transactional
     public Long deleteMeeting(Long meetingId,Long userId){
 
+
         Meeting meeting = meetingRepository.findById(meetingId)
                                            .orElseThrow(() -> new RuntimeException("meeting with id " +meetingId+" not found"));
-
         if(meeting.getOrganizerId()==userId) {
 
-
             meetingRepository.deleteById(meetingId);
-
             return meeting.getId();
         }else {
             throw new RuntimeException("Can not delete meeting ");

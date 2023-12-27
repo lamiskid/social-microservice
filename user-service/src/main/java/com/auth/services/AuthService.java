@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,7 +26,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.util.WebUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -57,6 +57,7 @@ public class AuthService {
 
         AppUser appUser = AppUser.builder()
                                  .email(authRequest.getEmail())
+                                 .enable(true)
                                  .username(authRequest.getUsername())
                                  .password(encoder.encode(authRequest.getPassword()))
                                  .roles(Collections.singleton(roleRepository.findByName(ERole.ROLE_USER).get()))
@@ -70,8 +71,12 @@ public class AuthService {
 
     public LoginResponse signin(LoginRequest authRequest) {
         System.out.println(authRequest);
-
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+        Authentication authentication;
+        try {
+            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+        }catch (Exception ex){
+            throw new BadCredentialsException("bad credentials");
+        }
         System.out.println(authentication.isAuthenticated());
         SecurityContextHolder.getContext().setAuthentication(authentication);
         if (authentication.isAuthenticated()) {
