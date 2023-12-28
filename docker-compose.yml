@@ -7,26 +7,26 @@ services:
     platform: linux/amd64
     restart: always
     ports:
-      - "3307:3306"
+      - 3307:3306
     volumes:
       - ./mysql-data:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: user
-      MYSQL_USER: user
+      MYSQL_DATABASE: root
+      MYSQL_USER: root
       MYSQL_PASSWORD: 123456
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: 123456
 
   scheduledb:
     image: mysql:latest
     platform: linux/amd64
     restart: always
     ports:
-      - "3308:3306"
+      - 3308:3306
     volumes:
       - ./mysql-data:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: schedule
-      MYSQL_USER: schedule
+      MYSQL_DATABASE: root
+      MYSQL_USER: root
       MYSQL_PASSWORD: 123456
       MYSQL_ROOT_PASSWORD: root
 
@@ -35,14 +35,14 @@ services:
     platform: linux/amd64
     restart: always
     ports:
-      - "3309:3306"
+      - 3309:3306
     volumes:
       - ./mysql-data:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: meetup
-      MYSQL_USER: meetup
+      MYSQL_DATABASE: root
+      MYSQL_USER: root
       MYSQL_PASSWORD: 123456
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: 123456
 
   managementdb:
     image: mysql:latest
@@ -53,23 +53,23 @@ services:
     volumes:
       - ./mysql-data:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: management
-      MYSQL_USER: management
+      MYSQL_DATABASE: root
+      MYSQL_USER: root
       MYSQL_PASSWORD: 123456
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: 123456
 
   chatdb:
     image: mysql:latest
     platform: linux/amd64
     restart: always
     ports:
-      - "3311:3306"
+      - 3311:3306
     volumes:
       - ./mysql-data:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: chat
-      MYSQL_USER: chat
-      MYSQL_PASSWORD: chat
+      MYSQL_DATABASE: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 123456
       MYSQL_ROOT_PASSWORD: root
 
   adminer:

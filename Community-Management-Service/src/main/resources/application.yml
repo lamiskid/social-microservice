@@ -5,7 +5,7 @@ spring:
     hibernate:
       ddl-auto: create-drop
   datasource:
-    url: jdbc:mysql://localhost:3306/management?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3310/management?createDatabaseIfNotExist=true
     username: root
     password: 123456
     driverClassName: com.mysql.cj.jdbc.Driver
