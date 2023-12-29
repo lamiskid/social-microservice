@@ -1,13 +1,13 @@
 spring:
   jpa:
-    database: POSTGRESQL
+    database: MYSQL
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
   datasource:
     url: jdbc:mysql://localhost:3310/management?createDatabaseIfNotExist=true
-    username: root
-    password: 123456
+    username: management
+    password: management
     driverClassName: com.mysql.cj.jdbc.Driver
 
   application:

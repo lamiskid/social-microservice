@@ -22,18 +22,18 @@ public class GroupService {
 
     }
 
-    public Long deleteGroup(Long groupId,Long userId){
+    public Long deleteGroup(String username,Long groupId){
 
      GroupChat groupChat=   groupRepository.findById(groupId)
                 .orElseThrow(()-> new RuntimeException("group not found"));
 
-     Long creatorId= groupChat.getCreator().getId();
+     String creatorId= groupChat.getCreator().getUsername();
 
-     if(creatorId.equals(userId)){
+     if(creatorId.equalsIgnoreCase(username)){
          groupRepository.delete(groupChat);
          return groupChat.getId();
      }else {
-         throw new RuntimeException("can not delete group : ids not valid");
+         throw new RuntimeException("can not delete group : username not valid");
      }
     }
     public Long adminDeleteGroup(Long groupId){

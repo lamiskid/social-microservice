@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class Messages {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long messageId;
     @ManyToOne
     @JoinColumn(name = "sender_id")
     private AppUser sender;

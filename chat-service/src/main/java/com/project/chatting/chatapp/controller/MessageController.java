@@ -54,9 +54,9 @@ public class MessageController {
 
     /////////////////////////////////////////////////////////////////////
 
-    @GetMapping("/user/{from}/{to}")
-    public ResponseEntity<List<Messages>> getPrivateChatHistory(@PathVariable("from") String user1,
-                                                                @PathVariable("to") String user2) {
+    @GetMapping("/user/{username1}/{username2}")
+    public ResponseEntity<List<Messages>> getPrivateChatHistory(@PathVariable("username1") String user1,
+                                                                @PathVariable("username2") String user2) {
         AppUser sender = appUserService.getUserByUsername(user1);
         AppUser receiver = appUserService.getUserByUsername(user2);
         List<Messages> chatHistory = messageService.getChatHistory(sender, receiver);

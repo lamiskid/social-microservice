@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "USER-SERVICE")
-@LoadBalancerClient(name = "USER-SERVICE")
+//@LoadBalancerClient(name = "USER-SERVICE")
 public interface UserFeignClient {
     @GetMapping("/api/v1/users/login-user")
     ResponseEntity<AppUserResponse> getUserLoginUser();

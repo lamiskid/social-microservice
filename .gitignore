@@ -29,5 +29,14 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+### Docker database ###
+/chatdb-data
+/meetupdb-data
+/userdb-data
+/managementdb-data
+/scheduledb-data
+
+
+
 ### VS Code ###
 .vscode/

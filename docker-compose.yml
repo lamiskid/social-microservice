@@ -9,12 +9,12 @@ services:
     ports:
       - 3307:3306
     volumes:
-      - ./mysql-data:/var/lib/mysql
+      - ./userdb-data:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: root
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 123456
-      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: user
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+      MYSQL_ROOT_PASSWORD: user
 
   scheduledb:
     image: mysql:latest
@@ -23,26 +23,26 @@ services:
     ports:
       - 3308:3306
     volumes:
-      - ./mysql-data:/var/lib/mysql
+      - ./scheduledb-data:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: root
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 123456
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: schedule
+      MYSQL_USER: schedule
+      MYSQL_PASSWORD: schedule
+      MYSQL_ROOT_PASSWORD: schedule
 
   meetupdb:
     image: mysql:latest
     platform: linux/amd64
     restart: always
     ports:
-      - 3309:3306
+      - 3310:3306
     volumes:
-      - ./mysql-data:/var/lib/mysql
+      - ./meetupdb-data:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: root
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 123456
-      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: meeting
+      MYSQL_USER: meeting
+      MYSQL_PASSWORD: meeting
+      MYSQL_ROOT_PASSWORD: meeting
 
   managementdb:
     image: mysql:latest
@@ -51,12 +51,12 @@ services:
     ports:
       - 3310:3306
     volumes:
-      - ./mysql-data:/var/lib/mysql
+      - ./managementdb-data:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: root
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 123456
-      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: management
+      MYSQL_USER: management
+      MYSQL_PASSWORD: management
+      MYSQL_ROOT_PASSWORD: management
 
   chatdb:
     image: mysql:latest
@@ -65,12 +65,12 @@ services:
     ports:
       - 3311:3306
     volumes:
-      - ./mysql-data:/var/lib/mysql
+      - ./chatdb-data:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: root
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 123456
-      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: chat
+      MYSQL_USER: chat
+      MYSQL_PASSWORD: chat
+      MYSQL_ROOT_PASSWORD: chat
 
   adminer:
     image: adminer
