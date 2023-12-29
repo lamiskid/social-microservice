@@ -28,11 +28,11 @@ public class GroupController {
         return ResponseEntity.ok(createdGroup);
     }
 
-    @DeleteMapping("/delete/{userId}/{groupId}")
-    public ResponseEntity<Long> deleteGroup(@PathVariable("userId") Long userId,
+    @DeleteMapping("/delete/{username}/{groupId}")
+    public ResponseEntity<Long> deleteGroupByCreator(@PathVariable("username") String username,
                                             @PathVariable("groupId") Long groupId){
 
-       Long deleted= groupService.deleteGroup(userId,groupId);
+       Long deleted= groupService.deleteGroup(username,groupId);
        return ResponseEntity.ok(deleted);
     }
 
